@@ -1,0 +1,19 @@
+{
+  "name": "wasm-mandelbrot",
+  "collaborators": [
+    "timojokinen <timojannejokinen@gmail.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "wasm_mandelbrot_bg.wasm",
+    "wasm_mandelbrot.js",
+    "wasm_mandelbrot_bg.js",
+    "wasm_mandelbrot.d.ts"
+  ],
+  "module": "wasm_mandelbrot.js",
+  "types": "wasm_mandelbrot.d.ts",
+  "sideEffects": [
+    "./wasm_mandelbrot.js",
+    "./snippets/*"
+  ]
+}

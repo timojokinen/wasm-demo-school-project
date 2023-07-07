@@ -1,0 +1,19 @@
+{
+  "name": "game-of-life",
+  "collaborators": [
+    "timojokinen <timojannejokinen@gmail.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "game_of_life_bg.wasm",
+    "game_of_life.js",
+    "game_of_life_bg.js",
+    "game_of_life.d.ts"
+  ],
+  "module": "game_of_life.js",
+  "types": "game_of_life.d.ts",
+  "sideEffects": [
+    "./game_of_life.js",
+    "./snippets/*"
+  ]
+}
