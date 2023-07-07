@@ -21,7 +21,7 @@ function MandelbrotImage() {
       centerX,
       centerY,
       zoom,
-      255
+      510
     );
     const blob = new Blob([data], { type: "image/png" });
     const url = URL.createObjectURL(blob);
@@ -33,11 +33,11 @@ function MandelbrotImage() {
       setZoomDisabled(false);
     };
     img.src = url;
-    console.log(data);
   }, [zoom, centerX, centerY]);
 
   const handleClick = (event) => {
     if (zoomDisabled) return;
+    console.log(zoom, centerX, centerY);
     event.preventDefault();
     const isDoubleClick = event.detail > 1;
 
@@ -50,13 +50,13 @@ function MandelbrotImage() {
     const y = event.clientY - rect.top;
 
     // Now convert to fractal space and calculate the new fractal
-    const center_x = zoom * (3.0 * (x / width) - 2.0) + centerX;
-    const center_y = zoom * (2.0 * (y / height) - 1.0) + centerY;
+    const center_x = zoom * (3.0 * (x / rect.width) - 2.0) + centerX;
+    const center_y = zoom * (2.0 * (y / rect.height) - 1.0) + centerY;
 
     // Store the current center and zoom level for the next zoom operation
     setCenterX(center_x);
     setCenterY(center_y);
-    setZoom(zoom * 0.5);
+    setZoom(zoom * 0.3);
   };
 
   return (
