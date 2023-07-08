@@ -161,7 +161,7 @@ function GameOfLife() {
           <div>
             <label className="flex flex-col relative">
               <span className="text-xl font-bold uppercase text-center absolute left-8 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                Width
+                Height
               </span>
               <input
                 className="px-8 py-4 border-4 border-rose-600 rounded uppercase font-bold w-full text-white text-right bg-black text-xl outline-none shadow shadow-rose-600"
