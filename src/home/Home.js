@@ -12,7 +12,7 @@ function Home() {
         </Link>
         <Link
           to="/mandelbrot"
-          className="text-white text-2xl p-16 text-center border-4 border-rose-600 rounded-2xl uppercase font-bold transition-all duration-100"
+          className="text-white text-2xl p-16 text-center border-4 border-green-600 rounded-2xl uppercase font-bold transition-all duration-100"
         >
           Mandelbrot Image
         </Link>

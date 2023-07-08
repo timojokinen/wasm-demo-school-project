@@ -8,18 +8,25 @@ function MandelbrotImage() {
   const canvasRef = useRef(null);
   const [centerX, setCenterX] = useState(0);
   const [centerY, setCenterY] = useState(0);
+  const [maxIterations, setMaxIterations] = useState(255);
   const [zoom, setZoom] = useState(1);
   const [zoomDisabled, setZoomDisabled] = useState(false);
+  const [config, setConfig] = useState({
+    centerX,
+    centerY,
+    maxIterations,
+    zoom,
+  });
 
   useEffect(() => {
     setZoomDisabled(true);
     const data = calculate_mandelbrot(
       width,
       height,
-      centerX,
-      centerY,
-      zoom,
-      510
+      config.centerX,
+      config.centerY,
+      config.zoom,
+      config.maxIterations
     );
     const blob = new Blob([data], { type: "image/png" });
     const url = URL.createObjectURL(blob);
@@ -31,11 +38,10 @@ function MandelbrotImage() {
       setZoomDisabled(false);
     };
     img.src = url;
-  }, [zoom, centerX, centerY]);
+  }, [config]);
 
   const handleClick = (event) => {
     if (zoomDisabled) return;
-    console.log(zoom, centerX, centerY);
     event.preventDefault();
     const isDoubleClick = event.detail > 1;
 
@@ -55,6 +61,12 @@ function MandelbrotImage() {
     setCenterX(center_x);
     setCenterY(center_y);
     setZoom(zoom * 0.3);
+    setConfig({
+      ...config,
+      centerX: center_x,
+      centerY: center_y,
+      zoom: zoom * 0.3,
+    });
   };
 
   return (
@@ -66,6 +78,76 @@ function MandelbrotImage() {
         className="absolute object-cover inset-0 object-center w-full h-full"
         ref={canvasRef}
       />
+      <div className="text-white flex flex-col gap-8 justify-center z-8 fixed z-50 top-12 left-12">
+        <label className="flex flex-col relative">
+          <span className="text-xl font-bold uppercase text-center absolute left-8 top-1/2 transform -translate-y-1/2 pointer-events-none">
+            Center X
+          </span>
+          <input
+            className="px-8 py-4 border-4 border-green-600 rounded uppercase font-bold w-full text-white text-right bg-black text-xl outline-none shadow shadow-green-600"
+            type="text"
+            value={centerX}
+            onChange={(ev) => {
+              if (isNaN(ev.target.value)) return;
+              setCenterX(+ev.target.value);
+            }}
+            onBlur={(ev) => {
+              setConfig({ ...config, centerX });
+            }}
+          ></input>
+        </label>
+        <label className="flex flex-col relative">
+          <span className="text-xl font-bold uppercase text-center absolute left-8 top-1/2 transform -translate-y-1/2 pointer-events-none">
+            Center Y
+          </span>
+          <input
+            className="px-8 py-4 border-4 border-green-600 rounded uppercase font-bold w-full text-white text-right bg-black text-xl outline-none shadow shadow-green-600"
+            type="text"
+            value={centerY}
+            onChange={(ev) => {
+              if (isNaN(ev.target.value)) return;
+              setCenterY(+ev.target.value);
+            }}
+            onBlur={(ev) => {
+              setConfig({ ...config, centerY });
+            }}
+          ></input>
+        </label>
+        <label className="flex flex-col relative">
+          <span className="text-xl font-bold uppercase text-center absolute left-8 top-1/2 transform -translate-y-1/2 pointer-events-none">
+            Zoom
+          </span>
+          <input
+            className="px-8 py-4 border-4 border-green-600 rounded uppercase font-bold w-full text-white text-right bg-black text-xl outline-none shadow shadow-green-600"
+            type="text"
+            value={zoom}
+            onChange={(ev) => {
+              if (isNaN(ev.target.value)) return;
+              setZoom(+ev.target.value);
+            }}
+            onBlur={(ev) => {
+              setConfig({ ...config, zoom });
+            }}
+          ></input>
+        </label>
+        <label className="flex flex-col relative">
+          <span className="text-xl font-bold uppercase text-center absolute left-8 top-1/2 transform -translate-y-1/2 pointer-events-none">
+            Iter
+          </span>
+          <input
+            className="px-8 py-4 border-4 border-green-600 rounded uppercase font-bold w-full text-white text-right bg-black text-xl outline-none shadow shadow-green-600"
+            type="text"
+            value={maxIterations}
+            onChange={(ev) => {
+              if (isNaN(ev.target.value)) return;
+              setMaxIterations(+ev.target.value);
+            }}
+            onBlur={(ev) => {
+              setConfig({ ...config, maxIterations });
+            }}
+          ></input>
+        </label>
+      </div>
     </div>
   );
 }
