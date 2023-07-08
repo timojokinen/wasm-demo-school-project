@@ -134,9 +134,16 @@ function GameOfLife() {
           >
             Reset with pattern order
           </button>
-          <div>
-            <form
-              onSubmit={(ev) => {
+          <label className="flex flex-col relative">
+            <span className="text-xl font-bold uppercase text-center absolute left-8 top-1/2 transform -translate-y-1/2 pointer-events-none">
+              Width
+            </span>
+            <input
+              className="px-8 py-4 border-4 border-rose-600 rounded uppercase font-bold w-full text-white text-right bg-black text-xl outline-none shadow shadow-rose-600"
+              type="text"
+              name="width"
+              value={width}
+              onBlur={(ev) => {
                 ev.preventDefault();
                 setPaused(true);
                 universe.set_width(width);
@@ -144,55 +151,38 @@ function GameOfLife() {
                 setRedraw(redraw + 1);
                 setPaused(false);
               }}
-            >
-              <label className="flex flex-col relative">
-                <span className="text-xl font-bold uppercase text-center absolute left-8 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                  Width
-                </span>
-                <input
-                  className="px-8 py-4 border-4 border-rose-600 rounded uppercase font-bold w-full text-white text-right bg-black text-xl outline-none shadow shadow-rose-600"
-                  type="text"
-                  name="width"
-                  value={width}
-                  onChange={(ev) => {
-                    if (!isNaN(ev.target.value)) {
-                      setWidth(ev.target.value);
-                    }
-                  }}
-                ></input>
-              </label>
-              <button type="submit" className="hidden"></button>
-            </form>
-          </div>
-          <div>
-            <form
-              onSubmit={(ev) => {
-                ev.preventDefault();
-                setPaused(true);
-                universe.set_height(height);
-                universe.reset_pattern();
-                setRedraw(redraw + 1);
-                setPaused(false);
+              onChange={(ev) => {
+                if (!isNaN(ev.target.value)) {
+                  setWidth(ev.target.value);
+                }
               }}
-            >
-              <label className="flex flex-col relative">
-                <span className="text-xl font-bold uppercase text-center absolute left-8 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                  Width
-                </span>
-                <input
-                  className="px-8 py-4 border-4 border-rose-600 rounded uppercase font-bold w-full text-white text-right bg-black text-xl outline-none shadow shadow-rose-600"
-                  type="text"
-                  name="width"
-                  value={height}
-                  onChange={(ev) => {
-                    if (!isNaN(ev.target.value)) {
-                      setHeight(ev.target.value);
-                    }
-                  }}
-                ></input>
-              </label>
-              <button type="submit" className="hidden"></button>
-            </form>
+            ></input>
+          </label>
+          <div>
+            <label className="flex flex-col relative">
+              <span className="text-xl font-bold uppercase text-center absolute left-8 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                Width
+              </span>
+              <input
+                className="px-8 py-4 border-4 border-rose-600 rounded uppercase font-bold w-full text-white text-right bg-black text-xl outline-none shadow shadow-rose-600"
+                type="text"
+                name="width"
+                value={height}
+                onBlur={(ev) => {
+                  ev.preventDefault();
+                  setPaused(true);
+                  universe.set_height(height);
+                  universe.reset_pattern();
+                  setRedraw(redraw + 1);
+                  setPaused(false);
+                }}
+                onChange={(ev) => {
+                  if (!isNaN(ev.target.value)) {
+                    setHeight(ev.target.value);
+                  }
+                }}
+              ></input>
+            </label>
           </div>
         </div>
       </div>

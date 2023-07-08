@@ -13,8 +13,6 @@ function MandelbrotImage() {
 
   useEffect(() => {
     setZoomDisabled(true);
-    canvasRef.current.width = 1920;
-    canvasRef.current.height = 1080;
     const data = calculate_mandelbrot(
       width,
       height,
@@ -28,8 +26,8 @@ function MandelbrotImage() {
     const img = new Image();
     img.onload = () => {
       const ctx = canvasRef.current.getContext("2d");
-      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-      ctx.drawImage(img, 0, 0);
+      ctx.clearRect(0, 0, 1920, 1080);
+      ctx.drawImage(img, 0, 0, 1920, 1080);
       setZoomDisabled(false);
     };
     img.src = url;
@@ -62,6 +60,8 @@ function MandelbrotImage() {
   return (
     <div className="relative w-screen h-screen bg-black">
       <canvas
+        width={1920}
+        height={1080}
         onClick={handleClick}
         className="absolute object-cover inset-0 object-center w-full h-full"
         ref={canvasRef}
